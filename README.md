@@ -17,11 +17,39 @@
 - **Storage**: Firebase Storage hoặc AWS S3 (nếu cần lưu file dữ liệu người dùng)
 - **APIs**: Open Banking API (tích hợp ngân hàng sau này)
 
+```mermaid
+graph TD;
+    A[Người Dùng] -->|Nhập dữ liệu tài chính| B[Frontend (React.js)];
+    B -->|Gửi yêu cầu API| C[Backend (Express.js)];
+    C -->|Truy vấn dữ liệu| D[Database (PostgreSQL)];
+    C -->|Xác thực| E[Firebase Auth / Supabase Auth];
+    D -->|Trả dữ liệu| C;
+    C -->|Phân tích tài chính| F[AI / OpenAI API];
+    F -->|Gợi ý tài chính| B;
+```
+
 ### **2.2. Flow tổng quan**
 1. Người dùng đăng nhập vào hệ thống.
 2. Người dùng nhập dữ liệu tài chính cá nhân.
 3. Hệ thống tính toán và hiển thị dữ liệu dưới dạng biểu đồ.
 4. Hệ thống cung cấp các đề xuất tài chính dựa trên dữ liệu đã nhập.
+
+```mermaid
+sequenceDiagram
+    participant User as "Người Dùng"
+    participant Frontend as "Frontend (React.js)"
+    participant Backend as "Backend (Express.js)"
+    participant DB as "Database (PostgreSQL)"
+    participant AI as "AI/ML Engine"
+
+    User ->> Frontend: "Đăng nhập & nhập dữ liệu tài chính"
+    Frontend ->> Backend: "Gửi request API"
+    Backend ->> DB: "Truy vấn dữ liệu tài chính"
+    DB -->> Backend: "Trả dữ liệu tài chính"
+    Backend ->> AI: "Phân tích tài chính"
+    AI -->> Backend: "Gợi ý tài chính"
+    Backend -->> Frontend: "Trả kết quả & hiển thị"
+```
 
 ---
 
@@ -107,3 +135,4 @@ Dự án hướng tới việc giúp người dùng có cái nhìn tổng quan v
 - Xây dựng **mockup UI/UX** trên Figma
 - Thiết lập **backend trên Railway**
 - Viết API **cơ bản trên Express.js**
+
